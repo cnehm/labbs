@@ -5,7 +5,7 @@ ip = raw_input("Enter host IP address or hostname: ")
 username = raw_input("Enter username: ")
 password = raw_input("Enter password: ")
 
-remote_conn_pre=paramiko.SSHClient()
+remote_conn_pre = paramiko.SSHClient()
 remote_conn_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 remote_conn_pre.connect(ip, port=22, username=username,
                         password=password,
