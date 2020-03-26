@@ -1,15 +1,31 @@
 import paramiko
 import time
-ip_address = "172.17.159.75"
-username = "administrator"
-password = "cisco123"
-ssh_client = paramiko.SSHClient()
-ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh_client.connect(hostname=ip_address,username=username,password=password)
-remote_connection = ssh_client.invoke_shell()
-print("You are now connected to: ", ip_address, "\n")
-remote_connection.send("ip address show\n")
+
+ip = raw_input("Enter host IP address or hostname: ")
+username = raw_input("Enter username: ")
+password = raw_input("Enter password: ")
+
+remote_conn_pre=paramiko.SSHClient()
+remote_conn_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+remote_conn_pre.connect(ip, port=22, username=username,
+                        password=password,
+                        look_for_keys=False, allow_agent=False)
+
+remote_conn = remote_conn_pre.invoke_shell()
+output = remote_conn.recv(65535)
+print output
+
+remote_conn.send("conf t\n")
 time.sleep(1)
-output = remote_connection.recv(65535)
-print(output)
-ssh_client.close
+output = remote_conn.recv(65535)
+print output
+
+remote_conn.send("int loopback 1\n")
+time.sleep(1)
+output = remote_conn.recv(65535)
+print output
+
+remote_conn.send("ip address 8.8.8.8 255.255.255.0\n")
+time.sleep(1)
+output = remote_conn.recv(65535)
+print output
