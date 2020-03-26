@@ -13,19 +13,19 @@ remote_conn_pre.connect(ip, port=22, username=username,
 
 remote_conn = remote_conn_pre.invoke_shell()
 output = remote_conn.recv(65535)
-print output
+print(output)
 
 remote_conn.send("conf t\n")
 time.sleep(1)
 output = remote_conn.recv(65535)
-print output
+print(output)
 
 remote_conn.send("int loopback 1\n")
 time.sleep(1)
 output = remote_conn.recv(65535)
-print output
+print(output)
 
 remote_conn.send("ip address 8.8.8.8 255.255.255.0\n")
 time.sleep(1)
 output = remote_conn.recv(65535)
-print output
+print(output)
