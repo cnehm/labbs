@@ -1,9 +1,9 @@
 import paramiko
 import time
 
-ip = raw_input("Enter host IP address or hostname: ")
-username = raw_input("Enter username: ")
-password = raw_input("Enter password: ")
+ip = input("Enter host IP address or hostname: ")
+username = input("Enter username: ")
+password = input("Enter password: ")
 
 remote_conn_pre = paramiko.SSHClient()
 remote_conn_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
